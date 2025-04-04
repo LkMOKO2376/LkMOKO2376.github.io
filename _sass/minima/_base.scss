@@ -16,7 +16,7 @@ dl, dd, ol, ul, figure {
 body {
   font: $base-font-weight #{$base-font-size}/#{$base-line-height} $base-font-family;
   color: #c4c7bd;//$text-color;
-  background-color: #232328;//$background-color;
+  background-color: #141414;//$background-color;
   -webkit-text-size-adjust: 100%;
   -webkit-font-feature-settings: "kern" 1;
      -moz-font-feature-settings: "kern" 1;
@@ -103,11 +103,11 @@ h1, h2, h3, h4, h5, h6 {
  * Links
  */
 a {
-  color: #e85c16;//$brand-color;
+  color: #dc5816;//$brand-color;
   text-decoration: none;
 
   &:visited {
-    color: #af1308;//darken(#e2761d/* $brand-color */, 15%);
+    color: #dc5816;//darken(#e2761d/* $brand-color */, 15%);
   }
 
   &:hover {
@@ -151,7 +151,7 @@ code {
   @include relative-font-size(0.9375);
   // border: 1px solid $grey-color-light;
   // border-radius: 3px;
-  background-color: #181818;//#eef;
+  background-color: #2d2c26;//#eef;
 }
 
 code {

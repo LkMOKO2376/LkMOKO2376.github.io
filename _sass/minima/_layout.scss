@@ -5,8 +5,13 @@
   border-top: 5px solid $grey-color-dark;
   border-bottom: 1px solid $grey-color-light;
   min-height: $spacing-unit * 1.865;
-
+  // background: linear-gradient(to right,#feffd5,#ff5e00);
+  background-image: url("/assets/images/HeaderBackground.svg");
+  // background-size: contain;
   // Positioning context for the mobile navigation icon
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   position: relative;
 }
 
@@ -20,9 +25,20 @@
 
   &,
   &:visited {
-    color: #d76016;//$grey-color-dark;
+    color: #3d3837;//$grey-color-dark;
   }
 }
+
+// .header-right{
+//   margin-top: 14px;  
+//   margin-right: 5px; 
+//   float: right;
+// }
+
+// .header-rightImage{
+//   width: 28px;
+//   height: 28px;
+// }
 
 .site-nav {
   float: right;
