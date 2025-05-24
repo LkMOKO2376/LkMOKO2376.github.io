@@ -28,9 +28,10 @@ title: LkMOKO's Blog
 # url: "" # the base hostname & protocol for your site, e.g. http://example.com
 # twitter_username: jekyllrb
 # github_username:  jekyll
-
+markdown: kramdown
 # Build settings
 theme: minima
+
 # plugins:
 #   - jekyll-feed
 
