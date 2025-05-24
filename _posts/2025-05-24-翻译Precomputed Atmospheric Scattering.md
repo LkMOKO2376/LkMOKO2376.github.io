@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[原文翻译] 预计算大气散射 Precomputed Atmospheric Scattering"
+title:  "[论文翻译] 预计算大气散射 Precomputed Atmospheric Scattering"
 date:   2025-05-24 15:57:00 +0800
 categories: post
 math: true
@@ -8,7 +8,7 @@ math: true
 
 [原文]是Eric Bruneton and Fabrice Neyret发表于2008年的论文， 
 原作者2017年还更新了代码 [更新的源码]
-作为实时渲染大气的一个重要文章，感觉有必要看下原文 ，故顺便翻译下。大部分GPT翻译，简单校对：
+作为实时渲染大气的一个重要文章，感觉有必要看下原文 ，顺便翻译下。大部分GPT翻译，简单校对：
 
 
 ![alt text](/assets/images/Precomputed Atmospheric Scattering/image.png)
@@ -51,14 +51,14 @@ reflectance α(x,λ) 和法线 n(x) 等属性的高度场。
 渲染方程在大气CG模型中很少被完整考虑，尤其是在交互式渲染中。我们将在第2.2节重新阐述这一通用模型，
 并在第2.3节介绍以往CG模型中对此的近似处理。
 
----
+
 
 ![alt text](/assets/images/Precomputed Atmospheric Scattering/image-1.png)
 
-图1：我们的方法。左侧：左图：参考方案 包括从点 x 到  $$ x_0 $$ 积分的单次散射 (a) 和多次散射 (b)，两者均考虑了遮挡。右图：我们的近似方法。积分是从点
+**图1：**我们的方法。左侧：左图：参考方案 包括从点 x 到  $$ x_0 $$ 积分的单次散射 (a) 和多次散射 (b)，两者均考虑了遮挡。右图：我们的近似方法。积分是从点
 x 到  $$ x_s $$  ，忽略了遮挡（遮挡通过使用  $$ x_s $$  隐式处理）。(a) 保持不变；(b) 由于忽略了次级散射的遮挡而受到影响（这会带来正向或负向的偏差，但影响很小）
 
----
+
 
 ### 2.1 物理模型
 
@@ -92,17 +92,17 @@ model），该模型基于两种成分：空气分子和气溶胶粒子。这些
 从  $$ x_o $$ 到  $$ x $$ 的透射率(transmittance)  $$ T $$ 、在  $$ x_o $$ 处反射光的辐射亮度(radiance)  $$ I $$ ，以及在点  $$ y $$ 向方向  $$ -v $$ 
 散射光的辐射亮度  $$ J $$ ，定义如下（见图2）：
 
----
+
 
 ![alt text](/assets/images/Precomputed Atmospheric Scattering/image-2.png)
 
-图2：定义说明。
+**图2：**定义说明。
 (a) 大气透射率  $$ T $$ 由吸收和向外散射的光共同得出。
 (b)  $$ I[L] $$ 表示在  $$ x_o $$ 处反射的光  $$ L $$ 。在大气顶层边界上，该值为零。
 (c)  $$ J[L] $$ 表示在点  $$ y $$ 处向方向  $$ -v $$ 散射的光  $$ L $$ 。
 (d)  $$ S[L] $$ 表示从任意方向在  $$ x_o $$ 到  $$ x $$ 之间散射向点  $$ x $$ 的光  $$ L $$ 。
 
----
+
 
 ![alt text](/assets/images/Precomputed Atmospheric Scattering/image-5.png)
 
@@ -231,7 +231,7 @@ P_M \bar{S}_M[\bar{L}_0] + P_R \bar{S}_R[\bar{L}_0] + \bar{S}[\bar{L}_*]
 
 ![img.png](/assets/images/Precomputed Atmospheric Scattering/img.png)
 
----
+
 
 ![img_1.png](/assets/images/Precomputed Atmospheric Scattering/img_1.png)
 **图3： 视线角度参数**。 左侧：使用 $$ \mu $$ 带来伪影。 右侧：使用  $$ u_\mu = d_o/d_h $$ 或者  $$ d_o / d_H $$ 解决这个问题（ $$ \mu $$ 
@@ -240,7 +240,7 @@ P_M \bar{S}_M[\bar{L}_0] + P_R \bar{S}_R[\bar{L}_0] + \bar{S}[\bar{L}_*]
 ![img_2.png](/assets/images/Precomputed Atmospheric Scattering/img_2.png)
 **图4： 参数化**。  $$ u_r $$ 、 $$ u_\mu $$ 、 $$ u_{\mu_s} $$ 作为  $$ r $$ 、 $$ \mu $$ 、 $$ \mu_s $$ 的函数。
 
----
+
 
 **参数化** 为了将  $$ \bar{S}[\bar{L}] $$ 存储到  $$ \mathbb S $$ 中，我们需要一个从  $$ (x, v, s) $$ 映射到表索引  $$ [0,1]^4 $$ 
 的映射。一个简单的解决方案是使用  $$ r = \|x\| $$ 
@@ -292,7 +292,7 @@ S(x, v, s) - T(x, x_s) S(x_s, v, s)
 检测这些错误边界是一个非局部操作，不适合在
 GPU 上执行（例如需要多pass或使用列表结构）。
 
----
+
 ![img_4.png](/assets/images/Precomputed Atmospheric Scattering/img_4.png)
 
 **图5:** 长度  $$ l $$ 的计算。
@@ -301,7 +301,7 @@ GPU 上执行（例如需要多pass或使用列表结构）。
 右图：视点处于阴影中。若仅使用外扩边缘， $$ x_o $$ 会被误判为受光，且  $$ l $$ 将等于 0，而不是  $$ z_g - z_{\text{near}} $$ 
 。将背面（虚线）投影到近裁剪面上可以解决该问题 \[HHLH05]。
 
----
+
 
 我们的方法是使用阴影体算法来计算阴影段的总长度  $$ l $$ 
 ，并用该长度的单一段替代这些阴影段，在视线射线靠近“地面”的一端（见图5）。虚假边界仍然会带来问题，即对  $$ l $$ 
@@ -316,9 +316,9 @@ GPU 上执行（例如需要多pass或使用列表结构）。
 
 ## 6.实现，结果和讨论
 
----
+
 ![img_7.png](/assets/images/Precomputed Atmospheric Scattering/img_7.png)
-图 7：验证。
+**图 7**：验证。
 不同太阳天顶角和视角天顶角（视线与太阳方向之间的方位角为零）下，相对于天顶亮度的天空亮度。对比我们的模型（参数为：
  $$ \bar{\alpha} = 0.1 $$ 、
  $$ \beta^s_M = 2.2 \times 10^{-5} \, \text{m}^{-1} $$ 、 $$ \beta^s_M / \beta^e_M = 0.9 $$ 、 $$ g = 0.73 $$ 、 $$ H_M = 1.2 \, \text{km} $$ ）
@@ -327,17 +327,17 @@ GPU 上执行（例如需要多pass或使用列表结构）。
 
 
 ![img_8.png](/assets/images/Precomputed Atmospheric Scattering/img_8.png)
-图 8：结果。
+**图 8**：结果。
 (a) 从上到下分别为：[SFE07]、单次散射、多次散射和照片。使用 [SFE07] 方法时，由于缺少参数 ν，阴影未能显示；仅使用单次散射时画面过暗。
 (b) 从太空中观看的日落。
 (c) 我们用于性能测试的视角。
 
 ![img_9.png](/assets/images/Precomputed Atmospheric Scattering/img_9.png)
-图 9：结果。
+**图 9**：结果。
 我们的渲染结果（无边框）与网上找到的真实照片（红色边框）进行对比。
 色调映射可能解释了某些图像中与未校准照片相比天空色调的差异。
 
----
+
 
 **预计算**
 我们在 GPU 上实现了预计算算法，使用片元着色器进行数值积分处理。虽然这并非必须，但它使我们能够快速更改大气参数，并节省磁盘空间（实际上，在
