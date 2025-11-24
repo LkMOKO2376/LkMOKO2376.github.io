@@ -4,6 +4,7 @@ title:  "[论文翻译] 预计算大气散射 Precomputed Atmospheric Scattering
 date:   2025-05-24 15:57:00 +0800
 categories: post
 math: true
+image: /assets/images/Precomputed Atmospheric Scattering/image0.png
 ---
 
 [原文]是Eric Bruneton and Fabrice Neyret发表于2008年的论文， 
