@@ -148,22 +148,46 @@ blockquote {
  */
 pre,
 code {
-  @include relative-font-size(1.125);
-  border: 1.5px solid #66615a;
-  // border-radius: 3px;
-  background-color: #000000;//#eef;
+  @include relative-font-size(0.9);
+  border: none;
+  border-radius: 6px;
+  background-color: #000000;
 }
 
 code {
   padding: 1px 5px;
+  background-color: #090909;
 }
 
 pre {
   padding: 8px 12px;
   overflow-x: auto;
+  border-radius: 6px;
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: auto;
+  /* 其他样式... */
+  // 深色滚动条
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    border-radius: 0 0 6px 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #3d3d3d;
+    border-radius: 3px;
+    &:hover {
+      background: #555;
+    }
+  }
+  scrollbar-width: auto;
+  scrollbar-color: #3d3d3d #1a1a1a;
 
   > code {
     border: 0;
+    border-radius: 0;
     padding-right: 0;
     padding-left: 0;
   }

@@ -204,6 +204,43 @@
   @include relative-font-size(1.75);
 }
 
+.post-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: $spacing-unit * 0.5;
+
+  .post-list-heading {
+    margin-bottom: 0;
+  }
+}
+
+.post-search-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.post-search-input {
+  padding: 5px 12px;
+  border: none;
+  border-radius: 20px;
+  font-size: $small-font-size;
+  outline: none;
+  width: 200px;
+  background-color: #292929;
+  color: #c5c7be;
+
+  &::placeholder {
+    color: #c5c7be;
+  }
+
+  @include media-query($on-palm) {
+    width: 140px;
+  }
+}
+
 .post-list {
   margin-left: 0;
   list-style: none;
@@ -311,5 +348,94 @@
     height: auto;
     display: block;
     margin: 1em 0;
+  }
+}
+
+
+/**
+ * Post TOC sidebar
+ */
+.post-toc {
+  display: none;
+
+  @media (min-width: 1200px) {
+    display: block;
+    position: fixed;
+    top: 80px;
+    // 内容区宽 800px 居中，左侧留白约 (vw-800)/2，再向左偏移 TOC 宽度+间距
+    left: calc(50vw - 400px - 210px);
+    width: 190px;
+    max-height: calc(100vh - 100px);
+    z-index: 100;
+  }
+}
+
+.post-toc-inner {
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  padding-right: 6px;
+
+  // 细滚动条
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #3a3d37;
+    border-radius: 2px;
+  }
+}
+
+.post-toc-title {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #555850;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #2e302b;
+}
+
+.toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.toc-item {
+  margin: 0;
+  padding: 0;
+  line-height: 1.4;
+
+  &.toc-h3 { padding-left: 12px; }
+  &.toc-h4 { padding-left: 24px; }
+}
+
+.toc-link {
+  display: block;
+  padding: 4px 6px;
+  font-size: 13px;
+  color: #666960;
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  border-radius: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.15s, border-color 0.15s;
+
+  &:hover {
+    color: #b0b3aa;
+    border-left-color: #4a4d47;
+  }
+
+  &.toc-active {
+    color: #c4c7bd;
+    border-left-color: #8a9a7e;
+    background-color: rgba(138, 154, 126, 0.08);
   }
 }

@@ -1,6 +1,14 @@
 ---
 layout: default
 ---
+
+<nav class="post-toc" id="post-toc" aria-label="文章目录">
+  <div class="post-toc-inner">
+    <span class="post-toc-title">目录</span>
+    <ul class="toc-list" id="toc-list"></ul>
+  </div>
+</nav>
+
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
@@ -25,3 +33,75 @@ layout: default
 
   <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
 </article>
+
+<script>
+(function () {
+  var content = document.querySelector('.post-content');
+  var tocList = document.getElementById('toc-list');
+  var tocNav  = document.getElementById('post-toc');
+  if (!content || !tocList || !tocNav) return;
+
+  var headings = Array.prototype.slice.call(
+    content.querySelectorAll('h2, h3, h4')
+  );
+
+  if (headings.length === 0) {
+    tocNav.style.display = 'none';
+    return;
+  }
+
+  // 确保每个标题都有 id
+  headings.forEach(function (h, i) {
+    if (!h.id) { h.id = 'toc-heading-' + i; }
+  });
+
+  // 生成目录列表
+  headings.forEach(function (h) {
+    var li = document.createElement('li');
+    li.className = 'toc-item toc-' + h.tagName.toLowerCase();
+    var a = document.createElement('a');
+    a.href = '#' + h.id;
+    a.className = 'toc-link';
+    a.textContent = h.textContent;
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.getElementById(h.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    li.appendChild(a);
+    tocList.appendChild(li);
+  });
+
+  var links = Array.prototype.slice.call(tocList.querySelectorAll('.toc-link'));
+  var current = -1;
+
+  function setActive(idx) {
+    if (idx === current) return;
+    links.forEach(function (l) { l.classList.remove('toc-active'); });
+    if (idx >= 0) {
+      links[idx].classList.add('toc-active');
+      // 让目录栏自动滚动到激活项可见
+      var inner = document.querySelector('.post-toc-inner');
+      var linkTop = links[idx].offsetTop;
+      if (inner && (linkTop < inner.scrollTop || linkTop > inner.scrollTop + inner.clientHeight - 40)) {
+        inner.scrollTop = linkTop - inner.clientHeight / 2;
+      }
+    }
+    current = idx;
+  }
+
+  function onScroll() {
+    var best = 0;
+    for (var i = 0; i < headings.length; i++) {
+      if (headings[i].getBoundingClientRect().top <= 90) {
+        best = i;
+      } else {
+        break;
+      }
+    }
+    setActive(best);
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>

@@ -10,10 +10,15 @@ layout: default
   {{ content }}
 
   {%- if site.posts.size > 0 -%}
-    <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
-    <ul class="post-list">
+    <div class="post-list-header">
+      <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
+      <div class="post-search-wrapper">
+        <input type="text" id="post-search" class="post-search-input" placeholder="搜索文章标题…" autocomplete="off">
+      </div>
+    </div>
+    <ul class="post-list" id="post-list">
       {%- for post in site.posts -%}
-      <li>
+      <li data-title="{{ post.title | escape | downcase }}">
         <div class="post-item">
           {%- if post.image -%}
           <div class="post-thumbnail">
@@ -43,3 +48,18 @@ layout: default
   {%- endif -%}
 
 </div>
+
+<script>
+  (function() {
+    var input = document.getElementById('post-search');
+    if (!input) return;
+    input.addEventListener('input', function() {
+      var query = this.value.toLowerCase().trim();
+      var items = document.querySelectorAll('#post-list > li');
+      items.forEach(function(li) {
+        var title = li.getAttribute('data-title') || '';
+        li.style.display = (!query || title.indexOf(query) !== -1) ? '' : 'none';
+      });
+    });
+  })();
+</script>
