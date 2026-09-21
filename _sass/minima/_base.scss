@@ -15,7 +15,7 @@ dl, dd, ol, ul, figure {
  */
 body {
   font: $base-font-weight #{$base-font-size}/#{$base-line-height} $base-font-family;
-  color: #c4c7bd;//$text-color;
+  color: #b0b3aa;//$text-color;
   background-color: #191919;//$background-color;
   -webkit-text-size-adjust: 100%;
   -webkit-font-feature-settings: "kern" 1;
@@ -26,6 +26,12 @@ body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+}
+
+// 标题与加粗强调保持较高亮度，不跟随正文一起压暗
+h1, h2, h3, h4, h5, h6,
+strong, b {
+  color: #c4c7bd;
 }
 
 
@@ -256,23 +262,16 @@ table {
   margin-bottom: $spacing-unit;
   width: 100%;
   text-align: $table-text-align;
-  color: lighten($text-color, 18%);
   border-collapse: collapse;
-  border: 1px solid $grey-color-light;
-  tr {
-    &:nth-child(even) {
-      background-color: lighten($grey-color-light, 6%);
-    }
-  }
+  border: 1px solid #3d3837;
   th, td {
     padding: ($spacing-unit * 0.3333333333) ($spacing-unit * 0.5);
   }
   th {
-    background-color: lighten($grey-color-light, 3%);
-    border: 1px solid darken($grey-color-light, 4%);
-    border-bottom-color: darken($grey-color-light, 12%);
+    border: 1px solid #3d3837;
+    border-bottom-color: #555850;
   }
   td {
-    border: 1px solid $grey-color-light;
+    border: 1px solid #3d3837;
   }
 }
