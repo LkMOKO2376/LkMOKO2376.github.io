@@ -343,12 +343,20 @@
   }
 
   img {
-    max-width: 100%;
-    width: 100%;
-    height: auto;
     display: block;
-    margin: 1em 0;
+    margin: 1em auto;   // 左右 auto → 水平居中
+    max-width: 100%;
+    max-height: 80vh;   // 默认高度上限（未指定 class 时生效）
+    width: auto;        // 不强制撑满，按原始比例显示
+    height: auto;
+    background-color: #fff;   // 透明图片的白色底，避免透明区域透出深色背景
   }
+
+  // 单图覆盖高度上限（kramdown 语法：![alt](url){:.img-h-md}）
+  img.img-h-sm   { max-height: 300px; }
+  img.img-h-md   { max-height: 500px; }
+  img.img-h-lg   { max-height: 800px; }
+  img.img-h-full { max-height: none; }   // 取消高度限制
 }
 
 
